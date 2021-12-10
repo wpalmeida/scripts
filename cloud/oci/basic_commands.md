@@ -51,6 +51,10 @@ oci bv boot-volume list -c <compartment-id> --availability-domain <AD>
 ```
 oci db system list -c <compartment-id>
 ```
+## OCI API raw-reuqest
+```
+oci raw-request --http-method POST --target-uri https://iaas.sa-saopaulo-1.oraclecloud.com --request-body file://SimpleRequestSummarizedUsagesDetails.json --config-file /home/opc/.oci/config
+```
 ## Query Parameters
 ```
 --query 'data[*].{item:item, item:item}'
