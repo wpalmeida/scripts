@@ -19,3 +19,12 @@ Search terms in a file or command
 ```
 <file_or_command> | grep <term>
 ```
+Change permission to make a file executable
+```
+chmod +x <file_name>
+```
+Create a shell script
+```
+#!/bin/bash
+<command>
+```
