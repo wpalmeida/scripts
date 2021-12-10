@@ -6,6 +6,10 @@ oci iam compartment list --output table
 ```
 oci iam compartment list --compartment-id-in-subtree TRUE --all
 ```
+Command to show all ACTIVE compartments/subcompartments in a table filtered by NAME and OCID
+```
+oci iam compartment list --compartment-id-in-subtree TRUE --all --query "data[*].{NAME:name, OCDI:id}" --output table --lifecycle-state ACTIVE
+```
 ```
 oci iam user list
 ```
