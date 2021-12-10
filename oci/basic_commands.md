@@ -20,7 +20,7 @@ oci compute instance list -c <compartment-id>
 oci compute instance get --instance-id <instance-id>
 ```
 ```
-oci compute instance action --action <START, STOP, etc> --instance-id <instance-id>
+oci compute instance action --action <START, STOP, ...> --instance-id <instance-id>
 ```
 ## Network Commands
 ```
