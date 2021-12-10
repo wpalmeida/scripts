@@ -19,6 +19,7 @@ oci iam group list
 ## Compute Commands
 ```
 oci compute instance list -c <compartment-id>
+oci compute instance list -c <compartment-id> --query 'data[*].{name:"display-name", status:"lifecycle-state", id:id}' --output table
 ```
 ```
 oci compute instance get --instance-id <instance-id>
