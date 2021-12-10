@@ -1,5 +1,8 @@
 
+```
 oci iam compartment list --output table
+```
+
 oci iam compartment list --compartment-id-in-subtree TRUE --all
 oci iam user list
 oci iam group list
