@@ -1,8 +1,12 @@
 # Azure CLI instalation
 
-## Install with just one command
+## Install
 ```
 curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+```
+OR
+```
+sudo apt-get install azure-cli
 ```
 
 ## Reference
