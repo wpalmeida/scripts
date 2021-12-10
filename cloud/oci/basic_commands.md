@@ -39,9 +39,13 @@ oci network vlan list -c <compartment-id>
 ```
 oci network route-table get --rt-id <route-table-id>
 ```
-## Block Volumes Commands
+## Block Volume Commands
 ```
 oci bv volume list -c <compartment-id>
+```
+## Boot Volume Commands
+```
+oci bv boot-volume list -c <compartment-id> --availability-domain <AD>
 ```
 ## DBSystem Commands
 ```
