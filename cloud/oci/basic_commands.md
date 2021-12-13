@@ -14,6 +14,10 @@ Command to list only compartment id
 ```
 oci iam compartment list --compartment-id-in-subtree TRUE --all --lifecycle-state ACTIVE --profile <profile> | jq '.data[] | .id' | tr -d \"
 ```
+Listar Availability-Domain
+```
+oci iam availability-domain list
+```
 ```
 oci iam user list
 ```
