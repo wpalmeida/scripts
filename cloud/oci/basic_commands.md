@@ -10,6 +10,10 @@ Command to show all ACTIVE compartments/subcompartments in a table filtered by N
 ```
 oci iam compartment list --compartment-id-in-subtree TRUE --all --query "data[*].{NAME:name, OCDI:id}" --output table --lifecycle-state ACTIVE
 ```
+Command to list only compartment id
+```
+oci iam compartment list --compartment-id-in-subtree TRUE --all --lifecycle-state ACTIVE --profile DASA | jq '.data[] | .id' | tr -d \"
+```
 ```
 oci iam user list
 ```
