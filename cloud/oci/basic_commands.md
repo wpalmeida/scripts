@@ -12,7 +12,7 @@ oci iam compartment list --compartment-id-in-subtree TRUE --all --query "data[*]
 ```
 Command to list only compartment id
 ```
-oci iam compartment list --compartment-id-in-subtree TRUE --all --lifecycle-state ACTIVE --profile DASA | jq '.data[] | .id' | tr -d \"
+oci iam compartment list --compartment-id-in-subtree TRUE --all --lifecycle-state ACTIVE --profile <profile> | jq '.data[] | .id' | tr -d \"
 ```
 ```
 oci iam user list
