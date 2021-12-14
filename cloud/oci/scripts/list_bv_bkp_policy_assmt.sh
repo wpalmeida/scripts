@@ -38,7 +38,7 @@ do
   oci --profile $profile bv volume-backup-policy-assignment get-volume-backup-policy-asset-assignment --asset-id $line | jq '.data[] | ."asset-id"' | tr -d \" >> policyAssetBlockVolume
 done < "$volumeList"
 
-diff vplumeList policyAssetBlockVolume | grep ocid | tr -d \< > volumeWithoutPolicy
+diff volumeList policyAssetBlockVolume | grep ocid | tr -d \< > volumeWithoutPolicy
 
 
 # oci compute boot-volume-attachment list -c $willian --availability-domain FOjF:SA-SAOPAULO-1-AD-1
