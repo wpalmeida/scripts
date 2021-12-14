@@ -19,7 +19,7 @@ do
 done < "$compartmentList"
 
 # Listar todas os OCID das as atribuções de politica de backup dos Boot Volumes e salvar no arquivo policyAssigment
-bootList="booList"
+bootList="bootList"
 while read line
 do
   outfile=$(echo $line)
