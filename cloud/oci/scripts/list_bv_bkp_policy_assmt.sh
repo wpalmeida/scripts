@@ -14,30 +14,31 @@ compartmentList="compartmentList"
 while read line
 do
   outfile=$(echo $line)
-  oci --profile $profile bv boot-volume list -c $line --availability-domain $ad | jq '.data[] | .id' | tr -d \" >> bvList
-  oci --profile $profile bv volume list -c $line | jq '.data[] | .id' | tr -d \" >> vList
+  oci --profile $profile bv boot-volume list -c $line --availability-domain $ad | jq '.data[] | .id' | tr -d \" >> bootList
+  oci --profile $profile bv volume list -c $line | jq '.data[] | .id' | tr -d \" >> volumeList
 done < "$compartmentList"
 
 # Listar todas os OCID das as atribuções de politica de backup dos Boot Volumes e salvar no arquivo policyAssigment
-file="bvList"
+bootList="booList"
 while read line
 do
   outfile=$(echo $line)
   oci --profile $profile bv volume-backup-policy-assignment get-volume-backup-policy-asset-assignment --asset-id $line | jq '.data[] | .id' | tr -d \" >> policyAssigmentBootVolume
   oci --profile $profile bv volume-backup-policy-assignment get-volume-backup-policy-asset-assignment --asset-id $line | jq '.data[] | ."asset-id"' | tr -d \" >> policyAssetBootVolume
-done < "$file"
+done < "$bootList"
 
-diff bvList policyAssetBootVolume | grep ocid | tr -d \< > bvWithoutPolicy
+diff bootList policyAssetBootVolume | grep ocid | tr -d \< > bootWithoutPolicy
 
 # Listar todas os OCID das as atribuções de politica de backup dos Block Volumes e salvar no arquivo policyAssigment
-file="vList"
+volumeList="volumeList"
 while read line
 do
   outfile=$(echo $line)
   oci --profile $profile bv volume-backup-policy-assignment get-volume-backup-policy-asset-assignment --asset-id $line | jq '.data[] | .id' | tr -d \" >> policyAssigmentBlockVolume
   oci --profile $profile bv volume-backup-policy-assignment get-volume-backup-policy-asset-assignment --asset-id $line | jq '.data[] | ."asset-id"' | tr -d \" >> policyAssetBlockVolume
-done < "$file"
+done < "$volumeList"
 
-diff vList policyAssetBlockVolume | grep ocid | tr -d \< > vWithoutPolicy
+diff vplumeList policyAssetBlockVolume | grep ocid | tr -d \< > volumeWithoutPolicy
+
 
 # oci compute boot-volume-attachment list -c $willian --availability-domain FOjF:SA-SAOPAULO-1-AD-1
