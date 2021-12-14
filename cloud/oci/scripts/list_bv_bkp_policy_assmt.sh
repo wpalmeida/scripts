@@ -27,6 +27,8 @@ do
   oci --profile $profile bv volume-backup-policy-assignment get-volume-backup-policy-asset-assignment --asset-id $line | jq '.data[] | ."asset-id"' | tr -d \" >> policyAssetBootVolume
 done < "$file"
 
+diff bvList policyAssetBootVolume | grep ocid | tr -d \< > bvWithoutPolicy
+
 # Listar todas os OCID das as atribuções de politica de backup dos Block Volumes e salvar no arquivo policyAssigment
 file="vList"
 while read line
@@ -35,3 +37,5 @@ do
   oci --profile $profile bv volume-backup-policy-assignment get-volume-backup-policy-asset-assignment --asset-id $line | jq '.data[] | .id' | tr -d \" >> policyAssigmentBlockVolume
   oci --profile $profile bv volume-backup-policy-assignment get-volume-backup-policy-asset-assignment --asset-id $line | jq '.data[] | ."asset-id"' | tr -d \" >> policyAssetBlockVolume
 done < "$file"
+
+diff vList policyAssetBlockVolume | grep ocid | tr -d \< > vWithoutPolicy
