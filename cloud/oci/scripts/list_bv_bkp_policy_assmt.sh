@@ -15,13 +15,23 @@ while read line
 do
   outfile=$(echo $line)
   oci --profile $profile bv boot-volume list -c $line --availability-domain $ad | jq '.data[] | .id' | tr -d \" >> bvList
+  oci --profile $profile bv volume list -c $line | jq '.data[] | .id' | tr -d \" >> vList
 done < "$file"
 
-# Listar todas os OCID das as atribuções de politica de backup e salvar no arquivo policyAssigment
+# Listar todas os OCID das as atribuções de politica de backup dos Boot Volumes e salvar no arquivo policyAssigment
 file="bvList"
 while read line
 do
   outfile=$(echo $line)
-  oci --profile $profile bv volume-backup-policy-assignment get-volume-backup-policy-asset-assignment --asset-id $line | jq '.data[] | .id' | tr -d \" >> policyAssigment
-  oci --profile $profile bv volume-backup-policy-assignment get-volume-backup-policy-asset-assignment --asset-id $line | jq '.data[] | ."asset-id"' | tr -d \" >> policyAsset
+  oci --profile $profile bv volume-backup-policy-assignment get-volume-backup-policy-asset-assignment --asset-id $line | jq '.data[] | .id' | tr -d \" >> policyAssigmentBootVolume
+  oci --profile $profile bv volume-backup-policy-assignment get-volume-backup-policy-asset-assignment --asset-id $line | jq '.data[] | ."asset-id"' | tr -d \" >> policyAssetBootVolume
+done < "$file"
+
+# Listar todas os OCID das as atribuções de politica de backup dos Block Volumes e salvar no arquivo policyAssigment
+file="vList"
+while read line
+do
+  outfile=$(echo $line)
+  oci --profile $profile bv volume-backup-policy-assignment get-volume-backup-policy-asset-assignment --asset-id $line | jq '.data[] | .id' | tr -d \" >> policyAssigmentBlockVolume
+  oci --profile $profile bv volume-backup-policy-assignment get-volume-backup-policy-asset-assignment --asset-id $line | jq '.data[] | ."asset-id"' | tr -d \" >> policyAssetBlockVolume
 done < "$file"
