@@ -1,4 +1,24 @@
 # Azure basic commands
+
+## View and set Azure profile
+
+Using the "jq" Linux utility to see all the Azure profile configured
+```
+cat .azure/azureProfile.json | jq
+```
+Show the current account
+```
+az account show
+```
+Show all account configured in a table
+```
+az account list --output table
+```
+Set the subscription
+```
+az account set --subscription <subscription-id>
+```
+
 ## Resource group
 List resrouce groups
 ```
