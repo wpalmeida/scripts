@@ -33,6 +33,9 @@ oci compute instance list -c <compartment-id> --query 'data[*].{name:"display-na
 oci compute instance get --instance-id <instance-id>
 ```
 ```
+oci compute instance list-vnics --instance-id <instance-id>
+```
+```
 oci compute instance action --action <START, STOP, ...> --instance-id <instance-id>
 ```
 ## Network Commands
@@ -41,6 +44,9 @@ oci network vcn list -c <compartment-id>
 ```
 ```
 oci network subnet list -c <compartment-id>
+```
+```
+oci network subnet list -c <compartment-id> --query 'data[*].{id:id, name:"display-name"}' --output table
 ```
 ```
 oci network vlan list -c <compartment-id>
