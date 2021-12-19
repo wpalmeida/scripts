@@ -23,7 +23,10 @@ az account set --subscription <subscription-id>
 List resrouce groups
 ```
 az group list
+```
+```
 az group list --output table
+```
 az group list --query "[?name=='<rg_name>']"
 ```
 ## VM
@@ -31,6 +34,12 @@ List VMs
 ```
 az vm list
 ```
+## Webapp
+List WebApps
+```
+az webapp list 
+```
+
 ## Query
 ```
 --query "[?location=='westus']"
