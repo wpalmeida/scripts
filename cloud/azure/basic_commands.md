@@ -27,6 +27,7 @@ az group list
 ```
 az group list --output table
 ```
+```
 az group list --query "[?name=='<rg_name>']"
 ```
 ## VM
