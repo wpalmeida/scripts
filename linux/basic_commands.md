@@ -25,6 +25,19 @@ chmod +x <file_name>
 ```
 Create a shell script
 ```
+## Network Utilities
+
+TCP Dump
+```
+tcpdump
+```
+
+## Log
+
+```
+tail -f
+```
+
 #!/bin/bash
 <command>
 ```
