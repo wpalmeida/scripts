@@ -77,6 +77,23 @@ oci bv boot-volume list -c <compartment-id> --availability-domain <AD>
 ```
 oci db system list -c <compartment-id>
 ```
+## Object Storage
+Create a bucket
+```
+oci --profile <profile> os bucket create -c <compartment-id> --name <bucket-name>
+```
+List buckets in a compartment
+```
+oci --profile <profile> os bucket list -c <compartment-id>
+```
+Copy a local file to a bucket
+```
+oci --profile INVENT os object put -bn multicloudcli --file webapp
+```
+Copy a a file from a bucket to local compute
+```
+change
+```
 ## OCI API raw-reuqest
 ```
 oci raw-request --http-method POST --target-uri https://iaas.sa-saopaulo-1.oraclecloud.com --request-body file://SimpleRequestSummarizedUsagesDetails.json --config-file /home/opc/.oci/config
