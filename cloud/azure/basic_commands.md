@@ -2,7 +2,7 @@
 
 ## Table of Contents
 
-1. [View and set Azure profile] (## View and set Azure profile)
+- [View and set Azure profile] (##%View%and%set%Azure%profile)
 
 ## View and set Azure profile
 
