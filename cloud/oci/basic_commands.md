@@ -1,4 +1,13 @@
 # OCI Basic Commands
+
+## Table of Contents
+
+1. [IAM Commands](#iam-commands)
+2. [Compute Commands](#compute-commands)
+3. [Network Commands](#network-commands)
+4. [Block Volume Commands](#block-volume-commands)
+5. [Boot Volume Commands](#boot-volume-commands)
+
 ## IAM Commands
 ```
 oci iam compartment list --output table
