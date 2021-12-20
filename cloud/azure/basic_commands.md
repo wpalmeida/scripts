@@ -2,9 +2,9 @@
 
 ## Table of Contents
 
-- [View and set Azure profile] (##%View%and%set%Azure%profile)
+- [View and set Azure profile](##View%and%set%Azure%profile)
 
-## View and set Azure profile
+##View and set Azure profile
 
 Using the "jq" Linux utility to see all the Azure profile configured
 ```
