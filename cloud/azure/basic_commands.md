@@ -2,8 +2,8 @@
 
 ## Table of Contents
 
-1. [View and set Azure profile](##View%and%set%Azure%profile)
-2. [Resource group](##Resource%group)
+1. [View and set Azure profile](##View-and-set-Azure-profile)
+2. [Resource group](##Resource-group)
 
 ## View and set Azure profile
 
