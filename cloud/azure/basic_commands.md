@@ -1,5 +1,9 @@
 # Azure basic commands
 
+## Table of Contents
+
+1. [View and set Azure profile] (## View and set Azure profile)
+
 ## View and set Azure profile
 
 Using the "jq" Linux utility to see all the Azure profile configured
@@ -49,6 +53,10 @@ az webapp list --query '[].{NAME:name, RG:resourceGroup, LOCATION:location
 ```
 --query "[?location=='westus']"
 ```
+Reference
+
+https://docs.microsoft.com/pt-br/cli/azure/query-azure-cli
+
 
 ## Reference
 https://docs.microsoft.com/pt-br/cli/azure/
