@@ -40,6 +40,10 @@ List WebApps
 ```
 az webapp list 
 ```
+List all WebApps in all Resource Groups and show in a table filtered by NAME, RG and LOCATION
+```
+az webapp list --query '[].{NAME:name, RG:resourceGroup, LOCATION:location
+```
 
 ## Query
 ```
