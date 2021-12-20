@@ -88,11 +88,11 @@ oci --profile <profile> os bucket list -c <compartment-id>
 ```
 Copy a local file to a bucket
 ```
-oci --profile INVENT os object put -bn multicloudcli --file webapp
+oci --profile <profile> os object put -bn <bucket-name> --file <file-name>
 ```
 Copy a a file from a bucket to local compute
 ```
-change
+oci os object get -bn <bucket-name> --file <file-name> --name <file-name>
 ```
 ## OCI API raw-reuqest
 ```
