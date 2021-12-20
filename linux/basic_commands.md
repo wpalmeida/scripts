@@ -29,7 +29,7 @@ Create a shell script
 
 TCP Dump
 ```
-tcpdump
+tcpdump -i <interface> dst <dst-ipaddress> -nn
 ```
 
 ## Log
