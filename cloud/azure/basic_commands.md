@@ -42,7 +42,7 @@ az vm list
 ```
 Atualizar TAG de uma VM
 ```
-az vm update -n Moodle-vm -g moodle --set tags.EMPRESA=MyCompany
+az vm update -n <vm-name> -g <resource-group> --set tags.tagName=tagValue
 ```
 ## Webapp
 List WebApps
