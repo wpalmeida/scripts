@@ -35,6 +35,14 @@ az group list --output table
 ```
 az group list --query "[?name=='<rg_name>']"
 ```
+Create resource group
+```
+az group create -l <region> -n <resource-group>
+```
+Show details abou resource group
+```
+az group show --resource-group <resource-group>
+```
 ## VM
 List VMs
 ```
