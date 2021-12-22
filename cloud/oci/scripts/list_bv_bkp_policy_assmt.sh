@@ -4,11 +4,28 @@ echo Which profile do you like?
 read profile
 
 # Criar variável apenas com o valor do availability domain
-ad=$(oci --profile $profile iam availability-domain list --query 'data[*].name' --raw-output)
+ad=$(oci --profile $profile iam availability-domain list --query 'data[0].name' --raw-output)
+
+export count_compart_id=$(oci --profile $profile iam compartment list --compartment-id-in-subtree TRUE --all --lifecycle-state ACTIVE --query 'data[] | length(@)')
 
 # Listar todos os OCID de todos os compartments ativos e salvar no arquivo comaprtmentList
-oci --profile $profile iam compartment list --compartment-id-in-subtree TRUE --all --lifecycle-state ACTIVE --query 'data[*].id' --raw-output > compartmentList
-compartmentList="compartmentList"
+#oci --profile $profile iam compartment list --compartment-id-in-subtree TRUE --all --lifecycle-state ACTIVE --query 'data[*].id' --raw-output > compartmentList
+#compartmentList="compartmentList"
+
+while [ $count_compart_id -ge 0 ]
+do
+   export compart_id=$(oci --profile $profile iam compartment list --compartment-id-in-subtree TRUE --all --lifecycle-state ACTIVE --query 'data['"$count_compart_id"'].id' --raw-output)
+   export count_boot_id=$(oci --profile $profile bv boot-volume list -c $compart_id --availability-domain $ad --query 'data[] | length(@)')
+   while [ $count_boot_id -ge 0 ]
+   do
+      export boot_id=$(oci --profile $profile bv boot-volume list -c $compart_id --availability-domain $ad --query 'data['"$count_boot_id"'].id' --raw-output)
+      oci --profile $profile bv volume-backup-policy-assignment get-volume-backup-policy-asset-assignment --asset-id $boot_id --query 'data[*].id' --raw-output  >> policyAssigmentBootVolume
+      echo $boot_id
+      let "count_boot_id-=1"
+   done
+   let "count_compart_id-=1"
+done
+
 
 # Listar todos os OCID dos boot-volumes de todos os compartments e salvar no arquivo bvList
 while read line
