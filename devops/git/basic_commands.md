@@ -4,6 +4,14 @@ Start a git repo
 ```
 git init
 ```
+Add a remote repository
+```
+git remote add origin <url>
+```
+See remote repository
+```
+git remote -v
+```
 Add files to be commited
 ```
 git add .
