@@ -24,6 +24,10 @@ Push your changes to a remote repository
 ```
 git push origin <branch>
 ```
+Pull your changes from a remote repository
+```
+git pull origin <branch>
+```
 Get git current status
 ```
 git status
