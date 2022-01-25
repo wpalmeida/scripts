@@ -20,6 +20,18 @@ Commit files
 ```
 git commit -m "<description>"
 ```
+View history change
+```
+git log
+```
+Reset the last commit
+```
+git reset --soft HEAD~1
+```
+Reset the last commit and change the file
+```
+git reset --hard HEAD~1
+```
 Push your changes to a remote repository
 ```
 git push origin <branch>
