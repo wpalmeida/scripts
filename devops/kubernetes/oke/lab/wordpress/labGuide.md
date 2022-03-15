@@ -1,6 +1,8 @@
 # Pré-requisitos
-- Ter instalado o Kubectl
-- Ter instalado o OCI CLI
+- Ter o Kubectl instalado
+- Ter o OCI CLI instalado
+- Ter o OKE criado
+- Ter o kubeconfig configurado
 
 # Procedimento
 - Criar os Namespace no cluster OKE
