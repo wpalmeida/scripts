@@ -5,7 +5,7 @@
 - Ter o kubeconfig configurado
 
 # Procedimento
-- Criar os Namespace no cluster OKE
+## Criar os Namespace no cluster OKE
 ```
 kubectl create namespace <NAME>
 ```
@@ -27,7 +27,7 @@ kubectl create namespace wordpress01
 ```
 kubectl get ns
 ```
-
+## Deployment
 - Criar e executar os arquivos wordpress-deployment.yaml, mysql-deployment.yaml e kustomization.yaml
 
 - wordpress-deployment.yaml
@@ -209,6 +209,7 @@ kubectl descrive <deployments, pods, svc, pvc> <especificar elemento - opcional>
 - Copiar o EXTERNAL-IP e testar o acesso no browser de cada site
 - Verificar a criação dos recursos no OCI (Reserved Public IP, Load Balancer e Block Volume)
 
+## Instalação NGINX Ingress Controller
 - Instalar o ingress-controller no cluster
 [NGINX Ingress Controlle](https://kubernetes.github.io/ingress-nginx/deploy/)
 ```
@@ -310,6 +311,7 @@ kubectl get svc -n wordpress02
 wordpress01.mylabdomain.tk
 wordpress02.mylabdomain.tk
 ```
+## Instalação cert-manager
 - Instalar o cert-manager
 [cert-manager](https://cert-manager.io/docs/installation/)
 ```
@@ -373,7 +375,11 @@ kubectl apply -f wordpress02-ingress.yaml -n wordpress02
 ```
 
 - Verificar os certificados e os secrets
+```
 kubectl get certificate -n wordpress01
 kubectl get certificate -n wordpress02
 kubectl get secrets -n wordpress01
 kubectl get secrets -n wordpress02
+```
+
+- Validar o acesso aos sites
