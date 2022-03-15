@@ -4,7 +4,12 @@ metadata:
   name: wordpress-ingress
   annotations:
     kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt"
 spec:
+  tls:
+  - hosts:
+    - "wordpress02.mylabdomain.tk"
+    secretName: "wordpress02-tls"
   rules:
   - host: wordpress02.mylabdomain.tk
     http:

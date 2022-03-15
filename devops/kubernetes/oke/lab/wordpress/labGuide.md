@@ -310,3 +310,70 @@ kubectl get svc -n wordpress02
 wordpress01.mylabdomain.tk
 wordpress02.mylabdomain.tk
 ```
+- Instalar o cert-manager
+[cert-manager](https://cert-manager.io/docs/installation/)
+```
+kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.7.1/cert-manager.yaml
+```
+- Criar e executar o arquivo do cluster issuer clusterissuer.yaml
+```
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt
+spec:
+  acme:
+    server: https://acme-staging-v02.api.letsencrypt.org/directory
+    email: willianpereiraalmeida@hotmail.com
+    privateKeySecretRef:
+      name: letsencrypt
+    solvers:
+    - http01:
+        ingress:
+          class: nginx
+```
+```
+kubectl apply -f clusterissuer.yaml
+```
+- Verificar o cluster issuer que é a nível do cluster
+```
+kubectl get clusterissuer
+```
+
+- Alterar os arquivos wordpress01-ingress.yaml e wordpress01-ingress.yaml para suportar tls
+```
+... 
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt"
+spec:
+  tls:
+  - hosts:
+    - "wordpress01.mylabdomain.tk"
+    secretName: "wordpress01-tls"
+  rules:
+...
+```
+```
+...
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt"
+spec:
+  tls:
+  - hosts:
+    - "wordpress02.mylabdomain.tk"
+    secretName: "wordpress02-tls"
+  rules:
+  ...
+```
+```
+kubectl apply -f wordpress01-ingress.yaml -n wordpress01
+kubectl apply -f wordpress02-ingress.yaml -n wordpress02
+```
+
+- Verificar os certificados e os secrets
+kubectl get certificate -n wordpress01
+kubectl get certificate -n wordpress02
+kubectl get secrets -n wordpress01
+kubectl get secrets -n wordpress02
