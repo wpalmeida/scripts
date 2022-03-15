@@ -219,6 +219,51 @@ kubectl get all -n ingress-nginx
 ```
 
 - Criar e executar os arquivos wordpress01-ingress.yaml e wordpress01-ingress.yaml
+
+- wordpress01-ingress.yaml
+```
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: wordpress-ingress
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+  - host: wordpress01.mylabdomain.tk
+    http:
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: wordpress
+              port:
+                number: 80
+```
+
+- wordpress01-ingress.yaml
+```
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: wordpress-ingress
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+  - host: wordpress02.mylabdomain.tk
+    http:
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: wordpress
+              port:
+                number: 80
+```
+
 ```
 kubectl apply -f wordpress01-ingress.yaml -n wordpress01
 kubectl apply -f wordpress02-ingress.yaml -n wordpress02
