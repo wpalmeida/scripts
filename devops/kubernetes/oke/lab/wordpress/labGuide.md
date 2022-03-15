@@ -12,6 +12,7 @@ kubectl create namespace <NAME>
 kubectl get ns
 ```
 - Criar os seguintes namespace
+
 |Name|Descrição|
 |--|--|
 |Site1|Site1|
