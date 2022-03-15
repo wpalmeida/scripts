@@ -280,4 +280,33 @@ kubectl get ingress -n wordpress02
 - Adicionar a entrada no DNS de acordo com o IP do ingress controller
 
 - Validar o acesso pelo dominio
+```
+wordpress01.mylabdomain.tk
+wordpress02.mylabdomain.tk
+```
 
+- Verificar os serviços dos sites
+```
+kubectl get svc -n wordpress01
+kubectl get svc -n wordpress02
+```
+
+- Alterar o service dos sites para ClusterIP no arquivo wordpress-deployment.yaml
+```
+  type: ClusterIP
+```
+- Executar o apply novamente
+```
+kubectl apply -k ./ -n wordpress01
+kubectl apply -k ./ -n wordpress02
+```
+- Verificar novamente os serviços dos sites
+```
+kubectl get svc -n wordpress01
+kubectl get svc -n wordpress02
+```
+- Validar o acesso pelo dominio
+```
+wordpress01.mylabdomain.tk
+wordpress02.mylabdomain.tk
+```
