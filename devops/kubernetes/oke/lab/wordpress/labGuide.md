@@ -318,7 +318,7 @@ spec:
 ```
 kubectl apply -f wpprd-ingress.yaml -n wpprd
 kubectl apply -f wphom-ingress.yaml -n wphom
-kubectl apply -f wphdev-ingress.yaml -n wpdev
+kubectl apply -f wpdev-ingress.yaml -n wpdev
 ```
 
 - Verificar o ingress
