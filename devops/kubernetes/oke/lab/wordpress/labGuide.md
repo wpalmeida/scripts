@@ -81,7 +81,7 @@ spec:
         tier: frontend
     spec:
       containers:
-      - image: wordpress:4.8-apache
+      - image: wordpress
         name: wordpress
         env:
         - name: WORDPRESS_DB_HOST
@@ -151,7 +151,7 @@ spec:
         tier: mysql
     spec:
       containers:
-      - image: mysql:5.6
+      - image: mysql
         name: mysql
         env:
         - name: MYSQL_ROOT_PASSWORD
@@ -230,9 +230,11 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/cont
 kubectl get all -n ingress-nginx
 ```
 
-- Criar e executar os arquivos wordpress01-ingress.yaml e wordpress01-ingress.yaml
+- Alterar o Size Shape do Load Balancer para 10Mpbs para ficar no Always Free
 
-- wordpress01-ingress.yaml
+- Criar e executar os arquivos wpprd-ingress.yaml, wphom-ingress.yaml e wpdev-ingress.yaml
+
+- wpprd-ingress.yaml
 ```
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -240,9 +242,14 @@ metadata:
   name: wordpress-ingress
   annotations:
     kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt"
 spec:
+  tls:
+  - hosts:
+    - "wpprd.mylabdomain.tk"
+    secretName: "wpprd-tls"
   rules:
-  - host: wordpress01.mylabdomain.tk
+  - host: wpprd.mylabdomain.tk
     http:
       paths:
         - path: /
@@ -254,7 +261,7 @@ spec:
                 number: 80
 ```
 
-- wordpress01-ingress.yaml
+- wphom-ingress.yaml
 ```
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -262,9 +269,41 @@ metadata:
   name: wordpress-ingress
   annotations:
     kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt"
 spec:
+  tls:
+  - hosts:
+    - "wphom.mylabdomain.tk"
+    secretName: "wphom-tls"
   rules:
-  - host: wordpress02.mylabdomain.tk
+  - host: wphom.mylabdomain.tk
+    http:
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: wordpress
+              port:
+                number: 80
+```
+
+- wpdev-ingress.yaml
+```
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: wordpress-ingress
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt"
+spec:
+  tls:
+  - hosts:
+    - "wpdev.mylabdomain.tk"
+    secretName: "wpdev-tls"
+  rules:
+  - host: wpdev.mylabdomain.tk
     http:
       paths:
         - path: /
@@ -277,28 +316,32 @@ spec:
 ```
 
 ```
-kubectl apply -f wordpress01-ingress.yaml -n wordpress01
-kubectl apply -f wordpress02-ingress.yaml -n wordpress02
+kubectl apply -f wpprd-ingress.yaml -n wpprd
+kubectl apply -f wphom-ingress.yaml -n wphom
+kubectl apply -f wphdev-ingress.yaml -n wpdev
 ```
 
 - Verificar o ingress
 ```
-kubectl get ingress -n wordpress01
-kubectl get ingress -n wordpress02
+kubectl get ingress -n wpprd
+kubectl get ingress -n wphom
+kubectl get ingress -n wpdev
 ```
 
 - Adicionar a entrada no DNS de acordo com o IP do ingress controller
 
 - Validar o acesso pelo dominio
 ```
-wordpress01.mylabdomain.tk
-wordpress02.mylabdomain.tk
+wpprd.mylabdomain.tk
+wphom.mylabdomain.tk
+wpdev.mylabdomain.tk
 ```
 
 - Verificar os serviços dos sites
 ```
-kubectl get svc -n wordpress01
-kubectl get svc -n wordpress02
+kubectl get svc -n wpprd
+kubectl get svc -n wphom
+kubectl get svc -n wpdev
 ```
 
 - Alterar o service dos sites para ClusterIP no arquivo wordpress-deployment.yaml
@@ -351,7 +394,7 @@ kubectl apply -f clusterissuer.yaml
 kubectl get clusterissuer
 ```
 
-- Alterar os arquivos wordpress01-ingress.yaml e wordpress01-ingress.yaml para suportar tls
+- Alterar os arquivos wpprd-ingress.yaml, wphom-ingress.yaml e wpdev-ingress.yaml para suportar tls
 ```
 ... 
   annotations:
@@ -360,8 +403,8 @@ kubectl get clusterissuer
 spec:
   tls:
   - hosts:
-    - "wordpress01.mylabdomain.tk"
-    secretName: "wordpress01-tls"
+    - "wpprd.mylabdomain.tk"
+    secretName: "wpprd-tls"
   rules:
 ...
 ```
@@ -373,22 +416,39 @@ spec:
 spec:
   tls:
   - hosts:
-    - "wordpress02.mylabdomain.tk"
-    secretName: "wordpress02-tls"
+    - "wphom.mylabdomain.tk"
+    secretName: "wphom-tls"
   rules:
   ...
 ```
 ```
-kubectl apply -f wordpress01-ingress.yaml -n wordpress01
-kubectl apply -f wordpress02-ingress.yaml -n wordpress02
+...
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt"
+spec:
+  tls:
+  - hosts:
+    - "wpdev.mylabdomain.tk"
+    secretName: "wpdev-tls"
+  rules:
+  ...
+```
+
+```
+kubectl apply -f wpprd-ingress.yaml -n wpprd
+kubectl apply -f wphom-ingress.yaml -n wphom
+kubectl apply -f wpdev-ingress.yaml -n wpdev
 ```
 
 - Verificar os certificados e os secrets
 ```
-kubectl get certificate -n wordpress01
-kubectl get certificate -n wordpress02
-kubectl get secrets -n wordpress01
-kubectl get secrets -n wordpress02
+kubectl get certificate -n wpprd
+kubectl get certificate -n wphom
+kubectl get certificate -n wpdev
+kubectl get secrets -n wpprd
+kubectl get secrets -n wphom
+kubectl get secrets -n wpdev
 ```
 
 - Validar o acesso aos sites
