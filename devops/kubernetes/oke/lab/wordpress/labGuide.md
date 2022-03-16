@@ -17,12 +17,14 @@ kubectl get ns
 
 |Name|Descrição|
 |--|--|
-|wordpress01|wordpress01|
-|wordpress02|wordpress02|
+|wpprd|wpprd|
+|wphom|wphom|
+|wpdev|wpdev|
 
 ```
-kubectl create namespace wordpress01
-kubectl create namespace wordpress01
+kubectl create namespace wpprd
+kubectl create namespace wphom
+kubectl create namespace wpdev
 ```
 ```
 kubectl get ns
@@ -183,22 +185,29 @@ resources:
 
 
 ```
-kubectl apply -k ./ -n wordpress01
-kubectl apply -k ./ -n wordpress02
+kubectl apply -k ./ -n wpprd
+kubectl apply -k ./ -n wphom
+kubectl apply -k ./ -n wpdev
 ```
 
 - Verificar a criação dos recursos com o "get"
 ```
-kubectl get deployments -n wordpress01
-kubectl get pods -n wordpress01
-kubectl get svc -n wordpress01
-kubectl get pvc -n wordpress01
+kubectl get deployments -n wpprd
+kubectl get pods -n wpprd
+kubectl get svc -n wpprd
+kubectl get pvc -n wpprd
 ```
 ```
-kubectl get deployments -n wordpress02
-kubectl get pods -n wordpress02
-kubectl get svc -n wordpress02
-kubectl get pvc -n wordpress02
+kubectl get deployments -n wphom
+kubectl get pods -n wphom
+kubectl get svc -n wphom
+kubectl get pvc -n wphom
+```
+```
+kubectl get deployments -n wpdev
+kubectl get pods -n wpdev
+kubectl get svc -n wpdev
+kubectl get pvc -n wpdev
 ```
 
 - Verificar a criação dos recursos com o "describe"

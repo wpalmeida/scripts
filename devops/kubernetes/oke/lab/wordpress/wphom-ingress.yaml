@@ -8,10 +8,10 @@ metadata:
 spec:
   tls:
   - hosts:
-    - "wordpress01.mylabdomain.tk"
-    secretName: "wordpress01-tls"
+    - "wphom.mylabdomain.tk"
+    secretName: "wphom-tls"
   rules:
-  - host: wordpress01.mylabdomain.tk
+  - host: wphom.mylabdomain.tk
     http:
       paths:
         - path: /

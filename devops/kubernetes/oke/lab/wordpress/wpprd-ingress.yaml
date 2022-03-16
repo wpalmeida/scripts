@@ -8,10 +8,10 @@ metadata:
 spec:
   tls:
   - hosts:
-    - "wordpress02.mylabdomain.tk"
-    secretName: "wordpress02-tls"
+    - "wpprd.mylabdomain.tk"
+    secretName: "wpprd-tls"
   rules:
-  - host: wordpress02.mylabdomain.tk
+  - host: wpprd.mylabdomain.tk
     http:
       paths:
         - path: /
