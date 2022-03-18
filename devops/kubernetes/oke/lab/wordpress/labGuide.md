@@ -452,3 +452,87 @@ kubectl get secrets -n wpdev
 ```
 
 - Validar o acesso aos sites
+
+## Instalar o Kubernets Dashboard
+
+- Acessar o o tutorial sobre como instalar o [Kubernetes Dashboard](https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/)
+
+- Executar o seguinte comando para instalar o Kubernetes Dashboard
+```
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.5.0/aio/deploy/recommended.yaml
+```
+
+- Criar uma entrada no DNS para o Kubernetes Dashboard apontando para o IP do ingress controller
+- Expor o Kubernetes Dashboard no ingress controller com o seguinte template dashboard-ingress.yaml
+```
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: dashboard-ingress
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt"
+    nginx.ingress.kubernetes.io/secure-backends: "true"
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+    ingress.kubernetes.io/backend-protocol: "HTTPS"
+    kubernetes.io/tls-acme: "true"
+spec:
+  tls:
+  - hosts:
+    - "dashboard.mylabdomain.tk"
+    secretName: "dashboard-tls"
+  spec:
+  defaultBackend:
+    service:
+      name: kubernetes-dashboard
+      port:
+        number: 443
+  rules:
+  - host: dashboard.mylabdomain.tk
+    http:
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: kubernetes-dashboard
+              port:
+                number: 443
+```
+
+- Acessar a Dashboard pelo nome que foi criado no DNS 
+
+- Criar acesso RBAC no seu [Kubernetes Dashboard](https://github.com/kubernetes/dashboard/blob/master/docs/user/access-control/creating-sample-user.md) através do arquivo dashboard-adminuser.yaml o qual contém as seguintes linhas
+```
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: admin-user
+  namespace: kubernetes-dashboard
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: admin-user
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+- kind: ServiceAccount
+  name: admin-user
+  namespace: kubernetes-dashboard
+  ```
+
+- Executar o comando
+```
+kubectl apply -f dashboard-adminuser.yaml
+```
+
+-
+- Executar o comando para obter o token
+```
+kubectl -n kubernetes-dashboard get secret $(kubectl -n kubernetes-dashboard get sa/admin-user -o jsonpath="{.secrets[0].name}") -o go-template="{{.data.token | base64decode}}"
+```
+
+
