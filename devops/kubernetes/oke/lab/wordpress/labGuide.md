@@ -560,4 +560,19 @@ helm list
 - From helm with this [tutorial](https://artifacthub.io/packages/helm/prometheus-community/prometheus#configuration)
 
 
+## Troubleshooting
+
+```
+kubectl port-forward <pod-name> 8081:80 -n <namespace>
+```
+```
+kubectl exec -it -n <namespace> <pod-name> /bin/bash
+```
+```
+mysql -u root -p
+adminadmin123!
+```
+```
+show databases;
+```
 
