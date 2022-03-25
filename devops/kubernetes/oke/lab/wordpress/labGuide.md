@@ -535,4 +535,29 @@ kubectl apply -f dashboard-adminuser.yaml
 kubectl -n kubernetes-dashboard get secret $(kubectl -n kubernetes-dashboard get sa/admin-user -o jsonpath="{.secrets[0].name}") -o go-template="{{.data.token | base64decode}}"
 ```
 
+## Install Helm
+
+- Install Helm on Ubuntu from tutorial on [Helm site](https://helm.sh/docs/intro/install/)
+
+```
+curl https://baltocdn.com/helm/signing.asc | sudo apt-key add -
+sudo apt-get install apt-transport-https --yes
+echo "deb https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
+sudo apt-get update
+sudo apt-get install helm
+```
+
+- Testar a instalação do Helm
+
+```
+helm list
+```
+
+- Quick Start with [Repo Bitnami](https://helm.sh/docs/intro/quickstart/)
+
+## Install Prometheus
+
+- From helm with this [tutorial](https://artifacthub.io/packages/helm/prometheus-community/prometheus#configuration)
+
+
 
