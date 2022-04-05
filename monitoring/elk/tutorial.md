@@ -144,3 +144,19 @@ sudo systemctl start kibana.service
 ```
 sudo systemctl status kibana.service
 ```
+
+### Ingressar Kibana ao Elastichsearch
+In any Elastichsearch node execute the following command to generate the token
+```
+sudo /usr/share/elasticsearch/bin/elasticsearch-create-enrollment-token -s kibana
+```
+- Copy the token
+- Open a web browser and enter the Kibana's IP address with the port 5601
+- http://<IP-ADDRESS>:5601/
+- Paste the token that you have generated
+- The Kibana will ask about the verification code the following command to get the code
+```
+sudo bash /usr/share/kibana/bin/kibana-verification-code
+```
+
+
