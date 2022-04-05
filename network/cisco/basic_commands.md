@@ -20,5 +20,5 @@ show interface <id-inte>
 ```
 show mac-address interface <id-int>
 ```
-- 
+- Show hardware
 show module
