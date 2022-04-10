@@ -162,6 +162,21 @@ sudo bash /usr/share/kibana/bin/kibana-verification-code
 ### Install Logstash
 - [DOC Reference](https://www.elastic.co/guide/en/logstash/current/installing-logstash.html#installing-binary)
 
+- Pre-requisitos
+- Verify Java installation
+```
+sudo apt update
+java -version
+```
+- Install Java
+```
+sudo apt install openjdk-17-jre-headless
+```
+- Verrify Java installation again
+```
+java -version
+```
+
 ```
 wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
 ```
@@ -189,3 +204,7 @@ sudo systemctl status logstash.service
 ```
 sudo systemctl stop logstash.service
 ```
+
+### Reference Links
+- [Iniciando com Elastck Stack](https://youtu.be/Bb3g8xk0Cys)
+- [Elastic Stack: O mínimo que um desenvolvedor precisa saber](https://youtu.be/VnHV8SUOKz0)
