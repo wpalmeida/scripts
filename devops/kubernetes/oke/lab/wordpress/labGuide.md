@@ -1,3 +1,13 @@
+---
+
+# Sumário
+
+---
+
+[[_TOC_]]
+
+---
+
 # Pré-requisitos
 - Ter o Kubectl instalado
 - Ter o OCI CLI instalado
