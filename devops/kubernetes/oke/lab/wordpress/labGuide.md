@@ -3,6 +3,7 @@
 - Ter o OCI CLI instalado
 - Ter o OKE criado
 - Ter o kubeconfig configurado
+- exemplo
 
 # Procedimento
 ## Criar os Namespace no cluster OKE
